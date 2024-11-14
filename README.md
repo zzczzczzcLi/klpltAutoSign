@@ -18,3 +18,4 @@
 ## 签到后Server酱提示
 1. 打开 Actions secrets and variables
 2. 添加以下 secret：[`SERVERCHAN_ENABLE`](https://github.com/xyz8848/KLPBBS_auto_sign_in/blob/main/docs/secrets.md#serverchan_enable)，[`SERVERCHAN_KEY`](https://github.com/xyz8848/KLPBBS_auto_sign_in/blob/main/docs/secrets.md#serverchan_key)
+   tip. ENABLE的值输入1就可以了，不是true

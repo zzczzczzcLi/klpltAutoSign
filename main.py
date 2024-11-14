@@ -280,7 +280,7 @@ def serverchan_notice(msg: str):
         msg: 提示信息
     """
     url = f"https://sctapi.ftqq.com/{serverchan_key}.send"
-    data = {"title": "苦力怕论坛自动"+msg, "desp": msg}
+    data = {"title": "苦力怕论坛"+msg, "desp": msg}
     try:
         response = requests.post(url, data=data)
         logging.debug(response.text)

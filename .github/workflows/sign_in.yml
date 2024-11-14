@@ -1,0 +1,66 @@
+# 苦力怕论坛 自动签到
+# GitHub: https://github.com/xyz8848/KLPBBS_auto_sign_in
+
+name: 'KLPBBS Auto Sign in'
+
+on:
+  schedule:
+    - cron: '1 16 * * *' # 签到时间（注意时差！）
+  workflow_dispatch:
+
+jobs:
+  sign-in:
+    name: Sign in
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Install Requirements
+        run: pip install -r requirements.txt
+
+      - name: Sign in
+        env:
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          DEBUG: ${{ secrets.DEBUG }}
+          MAIL_ENABLE: ${{ secrets.MAIL_ENABLE }}
+          MAIL_HOST: ${{ secrets.MAIL_HOST }}
+          MAIL_PORT: ${{ secrets.MAIL_PORT }}
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          WECHAT_ENABLE: ${{ secrets.WECHAT_ENABLE }}
+          WECHAT_WEBHOOK: ${{ secrets.WECHAT_WEBHOOK }}
+          WECHAT_MENTIONED: ${{ secrets.WECHAT_MENTIONED }}
+          SERVERCHAN_ENABLE: ${{ secrets.SERVERCHAN_ENABLE }}
+          SERVERCHAN_KEY: ${{ secrets.SERVERCHAN_KEY }}
+          TG_ENABLE: ${{ secrets.TG_ENABLE }}
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          NTFY_ENABLE: ${{ secrets.NTFY_ENABLE }}
+          NTFY_URL: ${{ secrets.NTFY_URL }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          NTFY_USERNAME: ${{ secrets.NTFY_USERNAME }}
+          NTFY_PASSWORD: ${{ secrets.NTFY_PASSWORD }}
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+        run: python main.py
+
+  keepalive-workflow:
+    name: Keepalive workflow
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Keepalive workflow
+        uses: gautamkrishnar/keepalive-workflow@v1
+        with:
+          use_api: true

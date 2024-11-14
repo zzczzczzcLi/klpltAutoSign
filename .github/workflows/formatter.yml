@@ -1,0 +1,42 @@
+# 苦力怕论坛 自动签到
+# GitHub: https://github.com/xyz8848/KLPBBS_auto_sign_in
+
+name: 'Format Code'
+
+on:
+  push:
+    branches: [ "*" ]
+  workflow_dispatch:
+
+jobs:
+  format-code:
+    name: Format Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install black
+
+      - name: Format Python code
+        run: black .
+
+      - name: Commit formatted code
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add .
+          git diff --exit-code
+          if [ $? -ne 0 ]; then
+            echo "Local branch and remote branch are inconsistent. Pushing changes..."
+            git commit -m "Auto-format code"
+            git push
+          else
+            echo "Local branch and remote branch are consistent. No action needed."
+          fi

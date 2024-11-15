@@ -12,7 +12,7 @@
 4. 添加以下 secret：[`USERNAME`](https://github.com/xyz8848/KLPBBS_auto_sign_in/blob/main/docs/secrets.md#username)，[`PASSWORD`](https://github.com/xyz8848/KLPBBS_auto_sign_in/blob/main/docs/secrets.md#password)
 
 ## 自定义签到时间
-（默认每天 6:30 签到，可能略有延迟是正常的）
+（默认每天 6:30 签到，有延迟，大概会推迟到10点左右）
 1. 到 [`.github/workflows/sign_in.yml`](.github/workflows/sign_in.yml) 中修改签到时间
 
 ## 签到后Server酱提示
